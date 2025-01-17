@@ -37,8 +37,8 @@ task setup-dev
 4. Clone and set up the project:
 
    ```bash
-   git clone https://github.com/your-org/fo-advanced-codeowners.git
-   cd fo-advanced-codeowners
+   gh repo clone qubeio/advanced-codeowners.git
+   cd advanced-codeowners
    pyenv local 3.13.0  # This creates/updates .python-version
    ```
 
