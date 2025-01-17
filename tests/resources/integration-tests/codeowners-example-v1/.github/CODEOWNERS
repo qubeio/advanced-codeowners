@@ -1,0 +1,8 @@
+*   @qubeio-platform/FusionOperate-Architect
+
+
+#@BOOL 004-grafana-logs.md @qubeio-platform/FusionOperate-Architect AND @qubeio-platform/DevEng-Architect
+004-grafana-logs.md @qubeio-platform/FusionOperate-Architect @qubeio-platform/DevEng-Architect
+
+#@BOOL /patterns/004-grafana-logs/* @qubeio-DevEng-architect AND @qubeio-platform/ARR-Architect
+/patterns/004-grafana-logs/* @qubeio-DevEng-architect @qubeio-platform/ARR-Architect

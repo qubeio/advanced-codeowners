@@ -1,0 +1,29 @@
+name: Run Package on Review Event
+
+on:
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+
+jobs:
+  run-package:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Pull Docker image
+      run: docker pull advanced-codeowners:latest
+
+    - name: Run package in Docker container
+      run: |
+        docker run --rm \
+          -v ${{ github.workspace }}:/workspace \
+          -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+          -e GITHUB_REPOSITORY=${{ github.repository }} \
+          -e GITHUB_EVENT_NAME=${{ github.event_name }} \
+          -e GITHUB_EVENT_PATH=${{ github.event_path }} \
+          -e GITHUB_WORKSPACE=${{ github.workspace }} \
+          -e GITHUB_SHA=${{ github.sha }} \
+          -e GITHUB_REF=${{ github.ref }} \
+          advanced-codeowners:latest

@@ -1,0 +1,18 @@
+*   @org/reviewer-group1    @org/reviewer-group2
+
+
+#@BOOL /folder1 (@org/reviewer-group2 OR @org/reviewer-group1 OR @org/reviewer-group3) AND @org/reviewer-group4
+/folder1        @org/reviewer-group2 @org/reviewer-group4 @org/reviewer-group1
+
+#@BOOL file1 @org/reviewer-group2 AND @org/reviewer-group1
+file1    @org/reviewer-group2
+
+/folder2     @org/reviewer-group2
+pattern.tmpl.md  @org/reviewer-group2
+
+#@BOOL **/folder3 @org/reviewer-group3 AND @org/reviewer-group4
+
+
+
+#TODO: Write a test to confirm that any reviewers in the BOOL statement are in the main CODEOWNERS statement
+#TODO: Create a ADV-CODEOWNERS format that will automatically create a CODEOWNERS file from it. Makes it easier for users as they won't have to update to areas for the same file-path when making changes.

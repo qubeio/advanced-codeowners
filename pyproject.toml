@@ -1,0 +1,19 @@
+[project]
+name = "advanced-codeowners"
+version = "0.1.0"
+description = "Advanced codeowners tooling to allow for more complex codeowners rules including boolean expressions"
+readme = "README.md"
+requires-python = ">=3.13.0"
+dependencies = [
+    "requests",
+    "pyyaml",
+    "PyGithub==2.4.0",
+    "requests-mock",
+    "python-dotenv",
+    "pathspec",
+    "typing",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"

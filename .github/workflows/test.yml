@@ -1,0 +1,21 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Build Docker image
+      run: docker build -t codeowners-checker .
+
+    - name: Run tests in container
+      run: |
+        docker run --rm codeowners-checker python -m unittest discover -s tests -v

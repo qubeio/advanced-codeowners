@@ -1,0 +1,50 @@
+version: '3'
+
+tasks:
+  docker-run:
+    desc: Build and run Docker container with GitHub environment
+    cmds:
+      - docker build -t my-python-app .
+      - >
+        docker run
+        -v /resources/example-repo:/github/workspace
+        -e GITHUB_TOKEN={{.GITHUB_TOKEN}}
+        -e GITHUB_ACTOR={{.GITHUB_ACTOR}}
+        -e GITHUB_REPOSITORY={{.GITHUB_REPOSITORY}}
+        -e GITHUB_SHA={{.GITHUB_SHA}}
+        -e GITHUB_REF={{.GITHUB_REF}}
+        -e GITHUB_EVENT_NAME={{.GITHUB_EVENT_NAME}}
+        -e GITHUB_WORKFLOW={{.GITHUB_WORKFLOW}}
+        -e GITHUB_JOB={{.GITHUB_JOB}}
+        -e GITHUB_RUN_NUMBER={{.GITHUB_RUN_NUMBER}}
+        my-python-app
+    env:
+      GITHUB_TOKEN:
+        sh: grep GITHUB_TOKEN .env | cut -d '=' -f2
+      GITHUB_ACTOR:
+        sh: grep GITHUB_ACTOR .env | cut -d '=' -f2
+      GITHUB_REPOSITORY:
+        sh: grep GITHUB_REPOSITORY .env | cut -d '=' -f2
+      GITHUB_SHA:
+        sh: git rev-parse HEAD
+      GITHUB_REF:
+        sh: grep GITHUB_REF .env | cut -d '=' -f2- || echo "refs/heads/main"
+      GITHUB_EVENT_NAME:
+        sh: grep GITHUB_EVENT_NAME .env | cut -d '=' -f2- || echo "push"
+      GITHUB_WORKFLOW:
+        sh: grep GITHUB_WORKFLOW .env | cut -d '=' -f2- || echo "local"
+      GITHUB_JOB:
+        sh: grep GITHUB_JOB .env | cut -d '=' -f2- || echo "build"
+      GITHUB_RUN_NUMBER:
+        sh: grep GITHUB_RUN_NUMBER .env | cut -d '=' -f2- || echo "1"
+    platforms:
+      - darwin
+  # Run all Python unit tests in the tests directory and all subdirectories
+  test:
+    desc: Run all Python unit tests
+    cmds:
+      - python -m unittest discover -s tests -v
+    platforms:
+      - darwin
+      - linux
+      - windows

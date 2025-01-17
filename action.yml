@@ -1,0 +1,15 @@
+name: 'Advanced CODEOWNERS Validator'
+description: 'Validates pull requests against advanced CODEOWNERS rules including boolean expressions'
+author: 'Andreas Frangopoulos'
+
+runs:
+  using: 'docker'
+  image: 'docker://ghcr.io/${{ github.repository }}:latest'
+  env:
+    GITHUB_TOKEN: ${{ github.token }}
+    GITHUB_REPOSITORY: ${{ github.repository }}
+    GITHUB_EVENT_PATH: ${{ github.event_path }}
+
+branding:
+  icon: 'shield'
+  color: 'green'
